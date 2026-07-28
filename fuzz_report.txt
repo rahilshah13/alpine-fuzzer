@@ -1,0 +1,229 @@
+========================================================================
+                DYNAMIC LIBRARY FUZZING RESULTS REPORT                   
+========================================================================
+
+Library Target : libc.musl-aarch64.so.1
+Input Domain   : "/lib/libc.musl-aarch64.so.1"
+Status         : FAILED (ExecutionFailed)
+Details        : Library functions failed under this input domain during dynamic evaluation.
+------------------------------------------------------------------------
+Library Target : libcgraph.so.6
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libstdc++.so.6
+Input Domain   : "/usr/lib/libstdc++.so.6"
+Status         : FAILED (ExecutionFailed)
+Details        : Library functions failed under this input domain during dynamic evaluation.
+------------------------------------------------------------------------
+Library Target : libintl.so.8
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libgvc.so.6
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libglib-2.0.so.0
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libgettextlib-0.24.1.so
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libgettextsrc-0.24.1.so
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libgcc_s.so.1
+Input Domain   : "/usr/lib/libgcc_s.so.1"
+Status         : FAILED (ExecutionFailed)
+Details        : Library functions failed under this input domain during dynamic evaluation.
+------------------------------------------------------------------------
+Library Target : libz.so.1
+Input Domain   : "/usr/lib/libz.so.1"
+Status         : FAILED (ExecutionFailed)
+Details        : Library functions failed under this input domain during dynamic evaluation.
+------------------------------------------------------------------------
+Library Target : libgobject-2.0.so.0
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libbfd-2.45.1.so
+Input Domain   : "/usr/lib/libbfd-2.45.1.so"
+Status         : FAILED (ExecutionFailed)
+Details        : Library functions failed under this input domain during dynamic evaluation.
+------------------------------------------------------------------------
+Library Target : libtextstyle.so.0
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libicuuc.so.76
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libexpat.so.1
+Input Domain   : "/usr/lib/libexpat.so.1"
+Status         : FAILED (ExecutionFailed)
+Details        : Library functions failed under this input domain during dynamic evaluation.
+------------------------------------------------------------------------
+Library Target : libsndfile.so.1
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libicutu.so.76
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libfontconfig.so.1
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libSPIRV-Tools.so
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : liblzma.so.5
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libzstd.so.1
+Input Domain   : "/usr/lib/libzstd.so.1"
+Status         : FAILED (ExecutionFailed)
+Details        : Library functions failed under this input domain during dynamic evaluation.
+------------------------------------------------------------------------
+Library Target : libwinpr3.so.3
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libgio-2.0.so.0
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libcdt.so.5
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libfreerdp3.so.3
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libssl.so.3
+Input Domain   : "/usr/lib/libssl.so.3"
+Status         : FAILED (ExecutionFailed)
+Details        : Library functions failed under this input domain during dynamic evaluation.
+------------------------------------------------------------------------
+Library Target : libpipewire-0.3.so.0
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libpcre2-8.so.0
+Input Domain   : "/usr/lib/libpcre2-8.so.0"
+Status         : FAILED (ExecutionFailed)
+Details        : Library functions failed under this input domain during dynamic evaluation.
+------------------------------------------------------------------------
+Library Target : libcrypto.so.3
+Input Domain   : "/usr/lib/libcrypto.so.3"
+Status         : FAILED (ExecutionFailed)
+Details        : Library functions failed under this input domain during dynamic evaluation.
+------------------------------------------------------------------------
+Library Target : libxml2.so.2
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libfreerdp-client3.so.3
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libX11.so.6
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libuv.so.1
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : librhash.so.1
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libreadline.so.8
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libpython3.12.so.1.0
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libpkgconf.so.7
+Input Domain   : "/usr/lib/libpkgconf.so.7"
+Status         : FAILED (ExecutionFailed)
+Details        : Library functions failed under this input domain during dynamic evaluation.
+------------------------------------------------------------------------
+Library Target : libpangocairo-1.0.so.0
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libpango-1.0.so.0
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libjansson.so.4
+Input Domain   : "/usr/lib/libjansson.so.4"
+Status         : FAILED (ExecutionFailed)
+Details        : Library functions failed under this input domain during dynamic evaluation.
+------------------------------------------------------------------------
+Library Target : libicui18n.so.76
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libgirepository-2.0.so.0
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libctf.so.0
+Input Domain   : "/usr/lib/libctf.so.0"
+Status         : FAILED (ExecutionFailed)
+Details        : Library functions failed under this input domain during dynamic evaluation.
+------------------------------------------------------------------------
+Library Target : libarchive.so.13
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
+Library Target : libSPIRV-Tools-opt.so
+Input Domain   : missing
+Status         : FAILED (Target Missing)
+Details        : Shared object binary does not exist within /lib or /usr/lib.
+------------------------------------------------------------------------
