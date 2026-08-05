@@ -1,39 +1,42 @@
-#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <dlfcn.h>
-#include <link.h>
 #include <string.h>
 #include <signal.h>
 #include <unistd.h>
 #include <sys/wait.h>
 
 void fuzz_target(const char *lib_path) {
-    void *handle = dlopen(lib_path, RTLD_LAZY | RTLD_GLOBAL);
+    // Timeout guard: prevent hanging if library constructors (.init) deadlock
+    alarm(2);
+
+    // Clear existing error state
+    dlerror();
+
+    // musl requires RTLD_NOW for immediate symbol resolution
+    void *handle = dlopen(lib_path, RTLD_NOW | RTLD_GLOBAL);
     if (!handle) {
-        printf("FailMode: LoadError\n");
-        exit(0);
-    }
-
-    // Actively exercise the input domain by extracting and probing the link map
-    struct link_map *map = NULL;
-    if (dlinfo(handle, RTLD_DI_LINKMAP, &map) == 0 && map != NULL) {
-        // Safely probe the base load address and dynamic segments
-        volatile unsigned char *base = (volatile unsigned char *)map->l_addr;
-        if (base) {
-            // Read headers to trigger structural validation within the runtime linker context
-            volatile unsigned char val = *base;
-            (void)val;
+        char *err = dlerror();
+        if (err) {
+            // musl ldso string matching
+            if (strstr(err, "symbol not found") || strstr(err, "Symbol not found") || strstr(err, "reloc")) {
+                printf("FailMode: SymbolNotFound\n");
+            } else if (strstr(err, "No such file") || strstr(err, "not found")) {
+                printf("FailMode: LibraryNotFound\n");
+            } else {
+                printf("FailMode: LoadError\n");
+            }
+        } else {
+            printf("FailMode: LoadError\n");
         }
+        fflush(stdout);
+        exit(1); // Non-zero exit signals child handled its own error reporting
     }
 
-    // Attempt to resolve common baseline symbols to force symbol table parsing
-    (void)dlsym(handle, "init");
-    (void)dlsym(handle, "_init");
-    (void)dlsym(handle, "fini");
-    (void)dlsym(handle, "_fini");
-
+    // Successful load and clean teardown
     dlclose(handle);
+    printf("FailMode: None\n");
+    fflush(stdout);
     exit(0);
 }
 
@@ -54,12 +57,12 @@ int main(int argc, char *argv[]) {
     } else {
         int status;
         waitpid(pid, &status, 0);
+
         if (WIFEXITED(status)) {
             int exit_code = WEXITSTATUS(status);
-            if (exit_code != 0) {
-                // Child handled reporting
-            } else {
-                printf("FailMode: None\n");
+            if (exit_code != 0 && exit_code != 1) {
+                printf("FailMode: ExecutionFailed\n");
+                fflush(stdout);
             }
         } else if (WIFSIGNALED(status)) {
             int sig = WTERMSIG(status);
@@ -67,9 +70,12 @@ int main(int argc, char *argv[]) {
                 printf("FailMode: SegmentationFault\n");
             } else if (sig == SIGABRT) {
                 printf("FailMode: AbortSignal\n");
+            } else if (sig == SIGALRM) {
+                printf("FailMode: Timeout\n");
             } else {
                 printf("FailMode: Signal_%d\n", sig);
             }
+            fflush(stdout);
         }
     }
     return 0;
