@@ -4,21 +4,45 @@
 #include <string.h>
 #include <signal.h>
 #include <unistd.h>
+#include <libgen.h>
+#include <time.h>
 #include <sys/wait.h>
 
+static inline long long get_time_us(void) {
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    return (long long)ts.tv_sec * 1000000LL + (ts.tv_nsec / 1000);
+}
+
 void fuzz_target(const char *lib_path) {
-    // Timeout guard: prevent hanging if library constructors (.init) deadlock
     alarm(2);
 
-    // Clear existing error state
+    if (strstr(lib_path, "ld-musl") || strstr(lib_path, "libc.musl")) {
+        printf("FailMode: SystemCoreLibrary\n");
+        printf("ExecutionTimeUs: 0\n");
+        fflush(stdout);
+        exit(0);
+    }
+
+    char path_copy[1024];
+    strncpy(path_copy, lib_path, sizeof(path_copy));
+    char *dir = dirname(path_copy);
+    
+    char env_buf[2048];
+    const char *old_ld = getenv("LD_LIBRARY_PATH");
+    if (old_ld) {
+        snprintf(env_buf, sizeof(env_buf), "%s:%s", dir, old_ld);
+    } else {
+        snprintf(env_buf, sizeof(env_buf), "%s", dir);
+    }
+    setenv("LD_LIBRARY_PATH", env_buf, 1);
+
     dlerror();
 
-    // musl requires RTLD_NOW for immediate symbol resolution
     void *handle = dlopen(lib_path, RTLD_NOW | RTLD_GLOBAL);
     if (!handle) {
         char *err = dlerror();
         if (err) {
-            // musl ldso string matching
             if (strstr(err, "symbol not found") || strstr(err, "Symbol not found") || strstr(err, "reloc")) {
                 printf("FailMode: SymbolNotFound\n");
             } else if (strstr(err, "No such file") || strstr(err, "not found")) {
@@ -30,10 +54,9 @@ void fuzz_target(const char *lib_path) {
             printf("FailMode: LoadError\n");
         }
         fflush(stdout);
-        exit(1); // Non-zero exit signals child handled its own error reporting
+        exit(1);
     }
 
-    // Successful load and clean teardown
     dlclose(handle);
     printf("FailMode: None\n");
     fflush(stdout);
@@ -46,6 +69,8 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    long long start_us = get_time_us();
+
     pid_t pid = fork();
     if (pid < 0) {
         perror("fork");
@@ -57,12 +82,12 @@ int main(int argc, char *argv[]) {
     } else {
         int status;
         waitpid(pid, &status, 0);
+        long long duration_us = get_time_us() - start_us;
 
         if (WIFEXITED(status)) {
             int exit_code = WEXITSTATUS(status);
             if (exit_code != 0 && exit_code != 1) {
                 printf("FailMode: ExecutionFailed\n");
-                fflush(stdout);
             }
         } else if (WIFSIGNALED(status)) {
             int sig = WTERMSIG(status);
@@ -75,8 +100,9 @@ int main(int argc, char *argv[]) {
             } else {
                 printf("FailMode: Signal_%d\n", sig);
             }
-            fflush(stdout);
         }
+        printf("ExecutionTimeUs: %lld\n", duration_us);
+        fflush(stdout);
     }
     return 0;
 }

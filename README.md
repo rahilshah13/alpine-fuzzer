@@ -1,4 +1,5 @@
-# Alpine Shared Library Fuzzer
+#### Alpine Shared Library Fuzzer & ML
 
-* `docker build -t alpine-fuzzer .`
-* `docker run --rm -v $(pwd):/app alpine-fuzzer`.
+1. `docker build -t alpine-fuzzer .`
+2. `docker run --rm -p 8080:8080 alpine-fuzzer`
+3. `localhost:8080`
